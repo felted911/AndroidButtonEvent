@@ -12,6 +12,10 @@ public class TestLocationService : MonoBehaviour
 	public Text longitude;
 	public Text altitude;
 	public Text horizontalAccuracy;
+	public Text mHeadingAccuracy;
+	public Text mMagneticHeading;
+	public Text mRawVector;
+	public Text mTrueHeading;
 	public Text lastDataTimestamp;
 
 	void onGui(){
@@ -20,8 +24,9 @@ public class TestLocationService : MonoBehaviour
 
 	IEnumerator Start()
     {
-		
-		Debug.LogWarning("Got a button click.");
+		Input.compass.enabled = true;
+
+		//Debug.LogWarning("Got a button click.");
 		Debug.LogWarning("In start.");
 		// First, check if user has location service enabled
 		if (!Input.location.isEnabledByUser)
@@ -65,6 +70,13 @@ public class TestLocationService : MonoBehaviour
 			altitude.text = "altitude is " + Input.location.lastData.altitude.ToString ();
 			horizontalAccuracy.text = "horizontal accuracy is " + Input.location.lastData.horizontalAccuracy.ToString ();
 			lastDataTimestamp.text = "Last Data Timestamp is " + Input.location.lastData.timestamp.ToString();
+
+			//Compass 
+			mHeadingAccuracy.text = "Heading Accuracy is " + Input.compass.headingAccuracy.ToString();
+			mMagneticHeading.text = "Magnetic Heading is " + Input.compass.magneticHeading.ToString();
+			mRawVector.text = "Raw Vector is " + Input.compass.rawVector.ToString();
+			mTrueHeading.text = "True Heading is " + Input.compass.trueHeading.ToString();
+			//transform.rotation = Quaternion.Euler(0, -Input.compass.magneticHeading, 0);
 		}
 
 		// Stop service if there is no need to query location updates continuously
@@ -73,6 +85,15 @@ public class TestLocationService : MonoBehaviour
 		//geolocationStatus.text = "Location service stopped.";
 
     }
+
+	void Update(){
+
+		//Compass 
+		mHeadingAccuracy.text = "Heading Accuracy is " + Input.compass.headingAccuracy.ToString();
+		mMagneticHeading.text = "Magnetic Heading is " + Input.compass.magneticHeading.ToString();
+		mRawVector.text = "Raw Vector is " + Input.compass.rawVector.ToString();
+		mTrueHeading.text = "True Heading is " + Input.compass.trueHeading.ToString();
+	}
 
 	public void getGeoOnClick (){
 
